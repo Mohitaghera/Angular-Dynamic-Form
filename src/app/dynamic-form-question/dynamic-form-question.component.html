@@ -1,0 +1,63 @@
+<div [formGroup]="myForm" class="field" *ngIf="question.isVisible">
+  <label [attr.for]="question.key">{{ question.label }}</label>
+
+  <div [ngSwitch]="question.controlType">
+    <input
+    class="text-input"
+      *ngSwitchCase="'text'"
+      [formControlName]="question.key"
+      [id]="question.key"
+      [type]="question.type"
+    />
+    <input
+    class="text-input"
+      *ngSwitchCase="'email'"
+      [formControlName]="question.key"
+      [id]="question.key"
+      [type]="question.type"
+    />
+    <input
+      *ngSwitchCase="'checkbox'"
+      [formControlName]="question.key"
+      [id]="question.key"
+      [type]="question.type"
+    />
+    <input
+      *ngSwitchCase="'number'"
+      [formControlName]="question.key"
+      [id]="question.key"
+      [type]="question.type"
+    />
+    <input
+      *ngSwitchCase="'phone'"
+      [formControlName]="question.key"
+      [id]="question.key"
+      [type]="question.type"
+      maxlength="10"
+      minlength="10"
+    />
+    <textarea *ngSwitchCase="'textarea'"
+    [formControlName]="question.key"
+    [id]="question.key"
+    row="5"></textarea>
+      
+    <select
+      [id]="question.key"
+      *ngSwitchCase="'dropdown'"
+      [formControlName]="question.key"
+    >
+      <option *ngFor="let option of question.options" [value]="option.key">
+        {{ option.value }}
+      </option>
+    </select>
+  </div>
+
+  <div
+    class="errorMessage"
+    *ngIf="!isValid && this.myForm.controls[this.question.key].touched"
+  >
+    {{ question.label }} is required
+  </div>
+
+</div>
+
