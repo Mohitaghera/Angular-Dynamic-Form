@@ -14,10 +14,15 @@ export class DynamicFormQuestionComponent implements OnInit{
   @Input() question!: QuestionInterface;
   @Input() myForm!: FormGroup;
 
+
   ngOnInit(): void {
       this.question.isRequired = this.question.isVisible
       
   }
+  // updateCheckboxValue(question: QuestionInterface, event:boolean) {
+  //   // question.value = isChecked;
+    
+  // }
 
   get isValid() {
     return (

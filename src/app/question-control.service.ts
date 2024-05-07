@@ -12,13 +12,17 @@ export class QuestionControlService {
     const grp: any = {};
 
     questions.forEach((question) => {
-
-      // console.log(question);
       
+      if (question.controlType === 'checkbox') {
+        grp[question.key] = question.isRequired
+        ? new FormControl(false, Validators.required)
+        : new FormControl(false);
+      } else {
+        grp[question.key] = question.isRequired
+          ? new FormControl(question.value || '', Validators.required)
+          : new FormControl(question.value || '');
+      }
       
-      grp[question.key] = question.isRequired
-        ? new FormControl(question.value || '', Validators.required)
-        : new FormControl(question.value || '');
       if(question.key === 'email'){
         grp[question.key] = question.isRequired
          ? new FormControl(question.value || '', [Validators.required,Validators.email])
@@ -29,7 +33,8 @@ export class QuestionControlService {
           grp[question.key] = new FormControl(question.value || '');
          }
     });
-    // console.log(grp);
+    
+console.log(grp);
 
     return new FormGroup(grp);
   }

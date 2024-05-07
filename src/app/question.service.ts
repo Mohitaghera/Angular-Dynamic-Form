@@ -7,6 +7,7 @@ import { CheckboxQuestion } from './model/checkbox-question';
 import { TextareaQuestion } from './model/textarea-question';
 import { EmailQuestion } from './model/email-question';
 import { PhoneQuestion } from './model/phone-question';
+import { SliderQuestion } from './model/slider-question';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,7 @@ export class QuestionService {
       new EmailQuestion({
         key: 'email',
         label: 'Email',
+        hint:'abc@gmail.com',
         type: 'email',
         isRequired: true,
         isVisible:true
@@ -48,9 +50,15 @@ export class QuestionService {
       new PhoneQuestion({
         key: 'phone',
         label: 'Phone Number',
-        type: 'number',
+        type: 'tel',
         isRequired: true,
         isVisible:true
+      }),
+      new CheckboxQuestion({
+        key:'married',
+        label:'Married',
+        type:'checkbox',
+        isVisible:true,
       }),
 
       new DropdownQuestion({
@@ -65,8 +73,21 @@ export class QuestionService {
           { key: 'nepal', value: 'Nepal' },
         ],
       }),
+      new TextareaQuestion({
+        key:'message',
+        label:'Message',
+        isVisible:true,
+      }),
+      new SliderQuestion({
+        key: 'policy',
+        label:'By selecting this, you agree to our privacy policy.',
+        type:'checkbox',
+        isVisible:true,
+        isRequired:true
+      })
     ];
 
     return questions;
   }
 }
+

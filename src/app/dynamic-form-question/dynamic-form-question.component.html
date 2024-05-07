@@ -9,19 +9,28 @@
       [id]="question.key"
       [type]="question.type"
     />
+    <div *ngSwitchCase="'email'"
+    >
     <input
     class="text-input"
-      *ngSwitchCase="'email'"
       [formControlName]="question.key"
       [id]="question.key"
       [type]="question.type"
     />
+    <span class="hint" *ngIf=" isValid || !this.myForm.controls[this.question.key].touched">E.g. {{question.hint}}</span>
+  </div>
     <input
       *ngSwitchCase="'checkbox'"
       [formControlName]="question.key"
       [id]="question.key"
-      [type]="question.type"
+      type="checkbox"
+      [value]="question.value"
     />
+    <label class="toggle" *ngSwitchCase="'slider'" >
+      <input  class="checkbox" [id]="question.key" [value]="question.value"  [formControlName]="question.key" type="checkbox"
+/>
+      <span class="slider round"></span>
+    </label>  
     <input
       *ngSwitchCase="'number'"
       [formControlName]="question.key"
@@ -33,9 +42,11 @@
       [formControlName]="question.key"
       [id]="question.key"
       [type]="question.type"
-      maxlength="10"
-      minlength="10"
+      minlength='10'
+      maxlength='10'
+      pattern="[0-9]{10}"
     />
+  
     <textarea *ngSwitchCase="'textarea'"
     [formControlName]="question.key"
     [id]="question.key"
@@ -50,14 +61,18 @@
         {{ option.value }}
       </option>
     </select>
+
+    
   </div>
 
-  <div
-    class="errorMessage"
-    *ngIf="!isValid && this.myForm.controls[this.question.key].touched"
-  >
-    {{ question.label }} is required
+  <div class="errorMessage" *ngIf="!isValid && this.myForm.controls[this.question.key]?.touched">
+    <ng-container *ngIf="this.myForm.controls[this.question.key]?.value">
+      Please Enter Valid {{ question.label }}
+    </ng-container>
+    <ng-container *ngIf="!this.myForm.controls[this.question.key]?.value">
+      {{ question.label }} is Required
+    </ng-container>
+  
   </div>
-
 </div>
 
